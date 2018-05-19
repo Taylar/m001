@@ -542,6 +542,11 @@
               <FileType>1</FileType>
               <FilePath>.\src\module\movt_app.c</FilePath>
             </File>
+            <File>
+              <FileName>rtc_app.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\module\rtc_app.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -551,6 +556,11 @@
               <FileName>movt.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\src\user_driver\movt.c</FilePath>
+            </File>
+            <File>
+              <FileName>rtc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\user_driver\rtc.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1481,6 +1491,11 @@
               <FileName>nrfx_timer.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\..\..\..\..\modules\nrfx\drivers\src\nrfx_timer.c</FilePath>
+            </File>
+            <File>
+              <FileName>nrfx_rtc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\..\..\modules\nrfx\drivers\src\nrfx_rtc.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -3966,6 +3981,11 @@
               <FileType>1</FileType>
               <FilePath>.\src\module\movt_app.c</FilePath>
             </File>
+            <File>
+              <FileName>rtc_app.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\module\rtc_app.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -3975,6 +3995,11 @@
               <FileName>movt.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\src\user_driver\movt.c</FilePath>
+            </File>
+            <File>
+              <FileName>rtc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\user_driver\rtc.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -4905,6 +4930,11 @@
               <FileName>nrfx_timer.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\..\..\..\..\modules\nrfx\drivers\src\nrfx_timer.c</FilePath>
+            </File>
+            <File>
+              <FileName>nrfx_rtc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\..\..\modules\nrfx\drivers\src\nrfx_rtc.c</FilePath>
             </File>
           </Files>
         </Group>

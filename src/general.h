@@ -5,8 +5,10 @@
 
 
 #include "movt.h"
+#include "rtc.h"
 
 #include "movt_app.h"
+#include "rtc_app.h"
 
 
 #endif	// GENERAL_H_

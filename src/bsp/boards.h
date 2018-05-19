@@ -91,7 +91,8 @@ extern "C" {
 #endif
 
 #include "nrf_drv_timer.h"
-
+#include "nrf_drv_rtc.h"
+#include "nrf_drv_clock.h"
 
 /**@defgroup BSP_BOARD_INIT_FLAGS Board initialization flags.
  * @{ */
@@ -200,7 +201,7 @@ uint32_t bsp_board_button_idx_to_pin(uint32_t button_idx);
 
 
 // ***********************************************************************************************************************************************
-
+// movt
 bool bsp_board_movt_state_get(uint32_t movt_idx);
 
 void bsp_board_movt_on(uint32_t movt_idx);
@@ -227,6 +228,15 @@ void bsp_movt_timer_stop(void);
 
 void bsp_movt_timer_set(uint32_t time_us);
 
+
+
+// ***********************************************************************************************************************************************
+// rtc
+void rtc_config(nrfx_rtc_handler_t handler);
+
+void rtc_enable(void);
+
+void rtc_disable(void);
 
 
 

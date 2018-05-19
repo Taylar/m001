@@ -256,7 +256,7 @@ void bsp_board_init(uint32_t init_flags)
 
 }
 // ***********************************************************************************************************************************************
-
+// movt timer
 
 const nrf_drv_timer_t TIMER_MOVT = NRF_DRV_TIMER_INSTANCE(0);
 
@@ -296,4 +296,55 @@ void bsp_movt_timer_set(uint32_t time_us)
     time_ticks = nrf_drv_timer_us_to_ticks(&TIMER_MOVT, time_us);
     nrf_drv_timer_extended_compare(
          &TIMER_MOVT, NRF_TIMER_CC_CHANNEL0, time_ticks, NRF_TIMER_SHORT_COMPARE0_CLEAR_MASK, true);
+}
+
+// ***********************************************************************************************************************************************
+// rtc
+
+const nrf_drv_rtc_t rtc = NRF_DRV_RTC_INSTANCE(0); /**< Declaring an instance of nrf_drv_rtc for RTC0. */
+
+
+/** @brief Function starting the internal LFCLK XTAL oscillator.
+ */
+static void lfclk_config(void)
+{
+    ret_code_t err_code = nrf_drv_clock_init();
+    APP_ERROR_CHECK(err_code);
+
+    nrf_drv_clock_lfclk_request(NULL);
+}
+
+/** @brief Function initialization and configuration of RTC driver instance.
+ */
+void rtc_config(nrfx_rtc_handler_t handler)
+{
+    uint32_t err_code;
+
+    lfclk_config();
+
+    //Initialize RTC instance
+    nrf_drv_rtc_config_t config = NRF_DRV_RTC_DEFAULT_CONFIG;
+    config.prescaler = 4095;
+    err_code = nrf_drv_rtc_init(&rtc, &config, handler);
+    APP_ERROR_CHECK(err_code);
+
+    //Enable tick event & interrupt
+    nrf_drv_rtc_tick_enable(&rtc,true);
+
+    //Set compare channel to trigger interrupt after COMPARE_COUNTERTIME seconds
+    err_code = nrf_drv_rtc_cc_set(&rtc,0,8,true);
+    APP_ERROR_CHECK(err_code);
+
+    //Power on RTC instance
+}
+
+void rtc_enable(void)
+{
+    nrf_drv_rtc_enable(&rtc);
+}
+
+
+void rtc_disable(void)
+{
+    nrf_drv_rtc_disable(&rtc);
 }
