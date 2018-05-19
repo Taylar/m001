@@ -1,5 +1,4 @@
-#include "boards.h"
-#include "movt.h"
+#include "general.h"
 
 #define     user_driver_pin_toggle(pin)     nrf_gpio_pin_toggle(pin)
 
@@ -353,4 +352,14 @@ void BspMovtInit(void)
 }
 
 
-
+// movt
+const bsp_movt_s		bsp_movt = 
+{
+	.clockM							= &movtConfig[MOVT_M_CLOCK],
+	.Init							= BspMovtInit,
+	.ClockMFrowardFinishCbInit		= ClockMFrowardFinishCbInit,
+	.ClockMResverseFinishCbInit		= ClockMResverseFinishCbInit,
+	.Compare						= MovtclockCompare,
+	.ReadRunDir						= BspMovtRunDiretion,
+	// .SelfTest						= BspMovtSelfTest,
+};
