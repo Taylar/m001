@@ -97,21 +97,26 @@ static const uint32_t Table_YearFirstDayUTC[101] =
 }
 
 
-static uint8_t	HalfSecCnt = 0;
+//static uint8_t	HalfSecCnt = 0;
 //static uint8_t	SecCnt     = 0;
 
 void RtcIsr(void)
 {
-	HalfSecCnt++;
-	if(HalfSecCnt > 1)
-	{
-		HalfSecCnt	= 0;
+	if(RtcSecIsr)
 		RtcSecIsr();
-	}
-	else
-	{
-		RtcHalfSecIsr();
-	}
+	
+	// HalfSecCnt++;
+	// if(HalfSecCnt > 1)
+	// {
+	// 	HalfSecCnt	= 0;
+	// 	if(RtcSecIsr)
+	// 		RtcSecIsr();
+	// }
+	// else
+	// {
+	// 	if(RtcHalfSecIsr)
+	// 		RtcHalfSecIsr();
+	// }
 }
 
 static rtc_time_s		rtcTime;
@@ -124,7 +129,7 @@ static rtc_time_s		rtcTime;
 		return;
 	bspRtc.BspInit();
 	bspRtc.CbIsrInit(RtcIsr);
-	HalfSecCnt		= 1;
+//	HalfSecCnt		= 1;
 	rtcTime.year  	= 0;
 	rtcTime.month	= 1;
 	rtcTime.day		= 1;

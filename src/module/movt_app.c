@@ -1,16 +1,11 @@
 #include "general.h"
 
-uint16_t movtForwardCnt;
-uint16_t movtReverseCnt;
 
 
 
 
 void MovtMClockForwardFinish(void)
 {
-	// disable interrupt
-	movtForwardCnt--;
-	// enable interrupt
 
 	bsp_movt.clockM->currentPosition ++;
 	if(bsp_movt.clockM->currentPosition == bsp_movt.clockM->movtRangeMax)
@@ -24,9 +19,6 @@ void MovtMClockForwardFinish(void)
 
 void MovtMClockReverseFinish(void)
 {
-	// disable interrupt
-	movtReverseCnt--;
-	// enable interrupt
 
 	if(bsp_movt.clockM->currentPosition > 0)
 	{
@@ -44,13 +36,13 @@ void MovtMClockReverseFinish(void)
 
 void ClockMFrowardFinishIsr(void)
 {
-	movtForwardCnt++;	
+	SetMovtEvent(MOVT_FORWARD_FINISH_EVENT);	
 }
 
 
 void ClockMResverseFinishIsr(void)
 {
-	movtReverseCnt++;	
+	SetMovtEvent(MOVT_RESVERSE_FINISH_EVENT);	
 }
 
 
@@ -60,8 +52,6 @@ void MovtAppInit(void)
 	bsp_movt.ClockMFrowardFinishCbInit(ClockMFrowardFinishIsr);
 	bsp_movt.ClockMResverseFinishCbInit(ClockMResverseFinishIsr);
 
-	movtForwardCnt = 0;
-	movtReverseCnt = 0;
 }
 
 // init the task, the drive interface

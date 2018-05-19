@@ -68,8 +68,8 @@ extern "C" {
 // ******************************************************************
 #define MOVTS_NUMBER    2
 
-#define MOVT_C_A        17
-#define MOVT_C_B        18
+#define MOVT_C_A        20
+#define MOVT_C_B        21
 
 #define LEDS_ACTIVE_STATE 0
 

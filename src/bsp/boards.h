@@ -238,7 +238,7 @@ void rtc_enable(void);
 
 void rtc_disable(void);
 
-
+void rtc_reset(void);
 
 
 

@@ -9,14 +9,17 @@ void BspRtcCbIsrInit(func *Cb)
 	BspRtcTimerIsr = Cb;	
 }
 
+static uint8_t rtc_cnt = 0;
 static void rtc_handler(nrf_drv_rtc_int_type_t int_type)
 {
-    if (int_type == NRF_DRV_RTC_INT_COMPARE0)
+    if (int_type == NRF_DRV_RTC_INT_TICK)
     {
-        BspRtcTimerIsr();
-    }
-    else if (int_type == NRF_DRV_RTC_INT_TICK)
-    {
+        rtc_cnt ++;
+        if(rtc_cnt >= 8)
+        {
+            rtc_cnt = 0;
+            BspRtcTimerIsr();
+        }
         
     }
 }

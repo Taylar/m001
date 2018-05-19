@@ -80,6 +80,8 @@
 #include "nrf_log_ctrl.h"
 #include "nrf_log_default_backends.h"
 
+#include "general.h"
+
 #define APP_BLE_CONN_CFG_TAG            1                                           /**< A tag identifying the SoftDevice BLE configuration. */
 
 static char m001BraodcastName[16] = "m001";
@@ -685,19 +687,34 @@ static void advertising_start(void)
     APP_ERROR_CHECK(err_code);
 }
 
+void rtcisr(void)
+{
+    SetRtcEvent();
+    nrf_gpio_pin_toggle(BSP_LED_1);
+}
+
 
 /**@brief Application main function.
  */
 int main(void)
 {
     bool erase_bonds;
-
+    uint32_t  temp;
+    
     // Initialize.
     uart_init();
     log_init();
     timers_init();
     buttons_leds_init(&erase_bonds);
+
     power_management_init();
+    
+    rtcApp.Init();
+    rtcApp.Cb_SecIsrInit(rtcisr);
+
+    MovtAppInit();
+
+    
     ble_stack_init();
     gap_params_init();
     gatt_init();
@@ -709,11 +726,24 @@ int main(void)
     printf("\r\nUART started.\r\n");
     NRF_LOG_INFO("Debug logging for UART over RTT started.");
     advertising_start();
+    rtcApp.Start();
 
+    
     // Enter main loop.
     for (;;)
     {
+
+        temp = movtForwardCnt;
+        movtForwardCnt= 0;
+        while(temp--)
+        {
+            movtForwardCnt = 0;
+            MovtMClockForwardFinish();
+        }
+
         idle_state_handle();
+
+
     }
 }
 
