@@ -47,6 +47,7 @@ extern "C" {
 #include "nrf_gpio.h"
 
 // LEDs definitions for PCA10040
+// ******************************************************************
 #define LEDS_NUMBER    3
 
 #define LED_RED        17
@@ -64,7 +65,18 @@ extern "C" {
 #define BSP_LED_1      LED_GREEN
 #define BSP_MOTO_1      MOTO_1
 #define BSP_LED_3      LED_4
+// ******************************************************************
+#define MOVTS_NUMBER    2
 
+#define MOVT_C_A        17
+#define MOVT_C_B        18
+
+#define LEDS_ACTIVE_STATE 0
+
+
+#define MOVTS_LIST { MOVT_C_A, MOVT_C_B}
+
+// ******************************************************************
 #define BUTTONS_NUMBER 3
 
 #define BUTTON_START   13
