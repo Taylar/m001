@@ -123,23 +123,23 @@ uint32_t bsp_board_pin_to_led_idx(uint32_t pin_number)
 }
 
 // ***********************************************************************************************************************************************
-bool bsp_board_movt_state_get(uint32_t led_idx)
+bool bsp_board_movt_state_get(uint32_t movt_idx)
 {
-    ASSERT(led_idx < MOVTS_NUMBER);
-    bool pin_set = nrf_gpio_pin_out_read(m_board_movt_list[led_idx]) ? true : false;
+    ASSERT(movt_idx < MOVTS_NUMBER);
+    bool pin_set = nrf_gpio_pin_out_read(m_board_movt_list[movt_idx]) ? true : false;
     return (pin_set == (LEDS_ACTIVE_STATE ? true : false));
 }
 
-void bsp_board_movt_on(uint32_t led_idx)
+void bsp_board_movt_on(uint32_t movt_idx)
 {
-        ASSERT(led_idx < MOVTS_NUMBER);
-        nrf_gpio_pin_write(m_board_movt_list[led_idx], LEDS_ACTIVE_STATE ? 1 : 0);
+        ASSERT(movt_idx < MOVTS_NUMBER);
+        nrf_gpio_pin_write(m_board_movt_list[movt_idx], LEDS_ACTIVE_STATE ? 1 : 0);
 }
 
-void bsp_board_movt_off(uint32_t led_idx)
+void bsp_board_movt_off(uint32_t movt_idx)
 {
-    ASSERT(led_idx < MOVTS_NUMBER);
-    nrf_gpio_pin_write(m_board_movt_list[led_idx], LEDS_ACTIVE_STATE ? 0 : 1);
+    ASSERT(movt_idx < MOVTS_NUMBER);
+    nrf_gpio_pin_write(m_board_movt_list[movt_idx], LEDS_ACTIVE_STATE ? 0 : 1);
 }
 
 void bsp_board_movts_off(void)
@@ -160,13 +160,13 @@ void bsp_board_movts_on(void)
     }
 }
 
-void bsp_board_movt_invert(uint32_t led_idx)
+void bsp_board_movt_invert(uint32_t movt_idx)
 {
-    ASSERT(led_idx < MOVTS_NUMBER);
-    nrf_gpio_pin_toggle(m_board_movt_list[led_idx]);
+    ASSERT(movt_idx < MOVTS_NUMBER);
+    nrf_gpio_pin_toggle(m_board_movt_list[movt_idx]);
 }
 
-static void bsp_board_movts_init(void)
+void bsp_board_movts_init(void)
 {
     uint32_t i;
     for (i = 0; i < MOVTS_NUMBER; ++i)
@@ -176,10 +176,10 @@ static void bsp_board_movts_init(void)
     bsp_board_movts_off();
 }
 
-uint32_t bsp_board_movt_idx_to_pin(uint32_t led_idx)
+uint32_t bsp_board_movt_idx_to_pin(uint32_t movt_idx)
 {
-    ASSERT(led_idx < MOVTS_NUMBER);
-    return m_board_movt_list[led_idx];
+    ASSERT(movt_idx < MOVTS_NUMBER);
+    return m_board_movt_list[movt_idx];
 }
 
 uint32_t bsp_board_pin_to_movt_idx(uint32_t pin_number)
@@ -254,4 +254,46 @@ void bsp_board_init(uint32_t init_flags)
         bsp_board_movts_init();
     }
 
+}
+// ***********************************************************************************************************************************************
+
+
+const nrf_drv_timer_t TIMER_MOVT = NRF_DRV_TIMER_INSTANCE(0);
+
+void bsp_movt_timer_init(nrfx_timer_event_handler_t timeCb)
+{
+    uint32_t time_us = 500; //Time(in miliseconds) between consecutive compare events.
+    uint32_t time_ticks;
+    uint32_t err_code = NRF_SUCCESS;
+
+    nrf_drv_timer_config_t timer_cfg = NRF_DRV_TIMER_DEFAULT_CONFIG;
+    err_code = nrf_drv_timer_init(&TIMER_MOVT, &timer_cfg, timeCb);
+    APP_ERROR_CHECK(err_code);
+
+    time_ticks = nrf_drv_timer_us_to_ticks(&TIMER_MOVT, time_us);
+
+    nrf_drv_timer_extended_compare(
+         &TIMER_MOVT, NRF_TIMER_CC_CHANNEL0, time_ticks, NRF_TIMER_SHORT_COMPARE0_CLEAR_MASK, true);
+
+    
+}
+
+void bsp_movt_timer_start(void)
+{
+    nrf_drv_timer_enable(&TIMER_MOVT);
+}
+
+
+void bsp_movt_timer_stop(void)
+{
+    nrf_drv_timer_enable(&TIMER_MOVT);
+}
+
+void bsp_movt_timer_set(uint32_t time_us)
+{
+    uint32_t time_ticks;
+
+    time_ticks = nrf_drv_timer_us_to_ticks(&TIMER_MOVT, time_us);
+    nrf_drv_timer_extended_compare(
+         &TIMER_MOVT, NRF_TIMER_CC_CHANNEL0, time_ticks, NRF_TIMER_SHORT_COMPARE0_CLEAR_MASK, true);
 }

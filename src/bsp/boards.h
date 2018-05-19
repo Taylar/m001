@@ -90,6 +90,9 @@
 extern "C" {
 #endif
 
+#include "nrf_drv_timer.h"
+
+
 /**@defgroup BSP_BOARD_INIT_FLAGS Board initialization flags.
  * @{ */
 #define BSP_INIT_NONE    0        /**< No initialization of LEDs or buttons (@ref bsp_board_init).*/
@@ -192,6 +195,50 @@ uint32_t bsp_board_pin_to_button_idx(uint32_t pin_number);
  * @return Pin number.
  */
 uint32_t bsp_board_button_idx_to_pin(uint32_t button_idx);
+
+
+
+
+// ***********************************************************************************************************************************************
+
+bool bsp_board_movt_state_get(uint32_t movt_idx);
+
+void bsp_board_movt_on(uint32_t movt_idx);
+
+void bsp_board_movt_off(uint32_t movt_idx);
+
+void bsp_board_movts_off(void);
+
+void bsp_board_movts_on(void);
+
+void bsp_board_movt_invert(uint32_t movt_idx);
+
+void bsp_board_movts_init(void);
+
+uint32_t bsp_board_movt_idx_to_pin(uint32_t movt_idx);
+
+uint32_t bsp_board_pin_to_movt_idx(uint32_t pin_number);
+
+void bsp_movt_timer_init(nrfx_timer_event_handler_t timeCb);
+
+void bsp_movt_timer_start(void);
+
+void bsp_movt_timer_stop(void);
+
+void bsp_movt_timer_set(uint32_t time_us);
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 #define BSP_BOARD_LED_0 0
 #define BSP_BOARD_LED_1 1
