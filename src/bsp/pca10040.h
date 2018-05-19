@@ -47,27 +47,25 @@ extern "C" {
 #include "nrf_gpio.h"
 
 // LEDs definitions for PCA10040
-#define LEDS_NUMBER    4
+#define LEDS_NUMBER    3
 
-#define LED_START      17
-#define LED_1          17
-#define LED_2          18
-#define LED_3          19
+#define LED_RED        17
+#define LED_GREEN      18
+#define MOTO_1         19
 #define LED_4          20
-#define LED_STOP       20
 
 #define LEDS_ACTIVE_STATE 0
 
 #define LEDS_INV_MASK  LEDS_MASK
 
-#define LEDS_LIST { LED_1, LED_2, LED_3, LED_4 }
+#define LEDS_LIST { LED_RED, LED_GREEN, MOTO_1}//, LED_4 }
 
-#define BSP_LED_0      LED_1
-#define BSP_LED_1      LED_2
-#define BSP_LED_2      LED_3
+#define BSP_LED_0      LED_RED
+#define BSP_LED_1      LED_GREEN
+#define BSP_MOTO_1      MOTO_1
 #define BSP_LED_3      LED_4
 
-#define BUTTONS_NUMBER 4
+#define BUTTONS_NUMBER 3
 
 #define BUTTON_START   13
 #define BUTTON_1       13
@@ -79,12 +77,12 @@ extern "C" {
 
 #define BUTTONS_ACTIVE_STATE 0
 
-#define BUTTONS_LIST { BUTTON_1, BUTTON_2, BUTTON_3, BUTTON_4 }
+#define BUTTONS_LIST { BUTTON_1, BUTTON_2, BUTTON_3}//, BUTTON_4 }
 
 #define BSP_BUTTON_0   BUTTON_1
 #define BSP_BUTTON_1   BUTTON_2
 #define BSP_BUTTON_2   BUTTON_3
-#define BSP_BUTTON_3   BUTTON_4
+//#define BSP_BUTTON_3   BUTTON_4
 
 #define RX_PIN_NUMBER  8
 #define TX_PIN_NUMBER  6

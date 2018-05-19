@@ -47,29 +47,21 @@
 #include "bsp_config.h"
 #include "boards.h"
 
-#ifndef BSP_SIMPLE
 #include "app_timer.h"
 #include "app_button.h"
-#endif // BSP_SIMPLE
 
-#if LEDS_NUMBER > 0 && !(defined BSP_SIMPLE)
 static bsp_indication_t m_stable_state        = BSP_INDICATE_IDLE;
 static bool             m_leds_clear          = false;
 static uint32_t         m_indication_type     = 0;
 static bool             m_alert_on            = false;
 APP_TIMER_DEF(m_bsp_leds_tmr);
 APP_TIMER_DEF(m_bsp_alert_tmr);
-#endif // LEDS_NUMBER > 0 && !(defined BSP_SIMPLE)
 
-#if BUTTONS_NUMBER > 0
-#ifndef BSP_SIMPLE
 static bsp_event_callback_t   m_registered_callback         = NULL;
 static bsp_button_event_cfg_t m_events_list[BUTTONS_NUMBER] = {{BSP_EVENT_NOTHING, BSP_EVENT_NOTHING}};
 APP_TIMER_DEF(m_bsp_button_tmr);
 static void bsp_button_event_handler(uint8_t pin_no, uint8_t button_action);
-#endif // BSP_SIMPLE
 
-#ifndef BSP_SIMPLE
 static const app_button_cfg_t app_buttons[BUTTONS_NUMBER] =
 {
     #ifdef BSP_BUTTON_0
@@ -105,10 +97,7 @@ static const app_button_cfg_t app_buttons[BUTTONS_NUMBER] =
     #endif // BUTTON_7
 
 };
-#endif // BSP_SIMPLE
-#endif // BUTTONS_NUMBER > 0
 
-#if (BUTTONS_NUMBER > 0)
 bool bsp_button_is_pressed(uint32_t button)
 {
     if (button < BUTTONS_NUMBER)
@@ -121,9 +110,7 @@ bool bsp_button_is_pressed(uint32_t button)
         return false;
     }
 }
-#endif
 
-#if (BUTTONS_NUMBER > 0) && !(defined BSP_SIMPLE)
 /**@brief Function for handling button events.
  *
  * @param[in]   pin_no          The pin number of the button pressed.
@@ -183,10 +170,8 @@ static void button_timer_handler(void * p_context)
 }
 
 
-#endif // (BUTTONS_NUMBER > 0) && !(defined BSP_SIMPLE)
 
 
-#if LEDS_NUMBER > 0 && !(defined BSP_SIMPLE)
 static void leds_off(void)
 {
     if (m_alert_on)
@@ -456,7 +441,6 @@ static void alert_timer_handler(void * p_context)
     UNUSED_PARAMETER(p_context);
     bsp_board_led_invert(BSP_LED_ALERT);
 }
-#endif // #if LEDS_NUMBER > 0 && !(defined BSP_SIMPLE)
 
 
 /**@brief Configure indicators to required state.
@@ -465,14 +449,12 @@ uint32_t bsp_indication_set(bsp_indication_t indicate)
 {
     uint32_t err_code = NRF_SUCCESS;
 
-#if LEDS_NUMBER > 0 && !(defined BSP_SIMPLE)
 
     if (m_indication_type & BSP_INIT_LEDS)
     {
         err_code = bsp_led_indication(indicate);
     }
 
-#endif // LEDS_NUMBER > 0 && !(defined BSP_SIMPLE)
     return err_code;
 }
 
@@ -481,11 +463,8 @@ uint32_t bsp_init(uint32_t type, bsp_event_callback_t callback)
 {
     uint32_t err_code = NRF_SUCCESS;
 
-#if LEDS_NUMBER > 0 && !(defined BSP_SIMPLE)
     m_indication_type     = type;
-#endif // LEDS_NUMBER > 0 && !(defined BSP_SIMPLE)
 
-#if (BUTTONS_NUMBER > 0) && !(defined BSP_SIMPLE)
     m_registered_callback = callback;
 
     // BSP will support buttons and generate events
@@ -517,11 +496,7 @@ uint32_t bsp_init(uint32_t type, bsp_event_callback_t callback)
                                         button_timer_handler);
         }
     }
-#elif (BUTTONS_NUMBER > 0) && (defined BSP_SIMPLE)
-    bsp_board_init(type);
-#endif // (BUTTONS_NUMBER > 0) && !(defined BSP_SIMPLE)
 
-#if LEDS_NUMBER > 0 && !(defined BSP_SIMPLE)
     if (type & BSP_INIT_LEDS)
     {
       //handle LEDs only. Buttons are already handled.
@@ -540,20 +515,17 @@ uint32_t bsp_init(uint32_t type, bsp_event_callback_t callback)
               app_timer_create(&m_bsp_alert_tmr, APP_TIMER_MODE_REPEATED, alert_timer_handler);
       }
     }
-#endif // LEDS_NUMBER > 0 && !(defined BSP_SIMPLE)
 
     return err_code;
 }
 
 
-#ifndef BSP_SIMPLE
 /**@brief Assign specific event to button.
  */
 uint32_t bsp_event_to_button_action_assign(uint32_t button, bsp_button_action_t action, bsp_event_t event)
 {
     uint32_t err_code = NRF_SUCCESS;
 
-#if BUTTONS_NUMBER > 0
     if (button < BUTTONS_NUMBER)
     {
         if (event == BSP_EVENT_DEFAULT)
@@ -581,36 +553,24 @@ uint32_t bsp_event_to_button_action_assign(uint32_t button, bsp_button_action_t 
     {
         err_code = NRF_ERROR_INVALID_PARAM;
     }
-#else
-    err_code = NRF_ERROR_INVALID_PARAM;
-#endif // BUTTONS_NUMBER > 0
 
     return err_code;
 }
 
-#endif // BSP_SIMPLE
 
 
 uint32_t bsp_buttons_enable()
 {
-#if (BUTTONS_NUMBER > 0) && !defined(BSP_SIMPLE)
     return app_button_enable();
-#else
-    return NRF_ERROR_NOT_SUPPORTED;
-#endif
 }
 
 uint32_t bsp_buttons_disable()
 {
-#if (BUTTONS_NUMBER > 0) && !defined(BSP_SIMPLE)
     return app_button_disable();
-#else
-    return NRF_ERROR_NOT_SUPPORTED;
-#endif
+
 }
 static uint32_t wakeup_button_cfg(uint32_t button_idx, bool enable)
 {
-#if !defined(BSP_SIMPLE)
     if (button_idx <  BUTTONS_NUMBER)
     {
         nrf_gpio_pin_sense_t sense = enable ?
@@ -619,10 +579,6 @@ static uint32_t wakeup_button_cfg(uint32_t button_idx, bool enable)
         nrf_gpio_cfg_sense_set(bsp_board_button_idx_to_pin(button_idx), sense);
         return NRF_SUCCESS;
     }
-#else
-    UNUSED_PARAMETER(button_idx);
-    UNUSED_PARAMETER(enable);
-#endif
     return NRF_ERROR_NOT_SUPPORTED;
 
 }

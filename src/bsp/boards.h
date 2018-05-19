@@ -221,9 +221,9 @@ uint32_t bsp_board_button_idx_to_pin(uint32_t button_idx);
 #define BSP_LED_1_MASK 0
 #define BSP_LED_1_PORT 0
 #endif
-#ifdef BSP_LED_2
-#define BSP_LED_2_MASK PIN_MASK(BSP_LED_2)
-#define BSP_LED_2_PORT PIN_PORT(BSP_LED_2)
+#ifdef BSP_MOTO_1
+#define BSP_LED_2_MASK PIN_MASK(BSP_MOTO_1)
+#define BSP_LED_2_PORT PIN_PORT(BSP_MOTO_1)
 #else
 #define BSP_LED_2_MASK 0
 #define BSP_LED_2_PORT 0
