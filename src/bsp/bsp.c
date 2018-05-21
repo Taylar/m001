@@ -497,25 +497,6 @@ uint32_t bsp_init(uint32_t type, bsp_event_callback_t callback)
         }
     }
 
-    if (type & BSP_INIT_LEDS)
-    {
-      //handle LEDs only. Buttons are already handled.
-      bsp_board_init(BSP_INIT_LEDS);
-
-      // timers module must be already initialized!
-      if (err_code == NRF_SUCCESS)
-      {
-          err_code =
-              app_timer_create(&m_bsp_leds_tmr, APP_TIMER_MODE_SINGLE_SHOT, leds_timer_handler);
-      }
-
-      if (err_code == NRF_SUCCESS)
-      {
-          err_code =
-              app_timer_create(&m_bsp_alert_tmr, APP_TIMER_MODE_REPEATED, alert_timer_handler);
-      }
-    }
-
     return err_code;
 }
 

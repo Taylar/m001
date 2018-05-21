@@ -147,7 +147,7 @@ void bsp_board_movts_off(void)
     uint32_t i;
     for (i = 0; i < MOVTS_NUMBER; ++i)
     {
-        bsp_board_led_off(i);
+        bsp_board_movt_off(i);
     }
 }
 
