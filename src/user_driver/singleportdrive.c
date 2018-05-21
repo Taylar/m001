@@ -1,12 +1,11 @@
-#include "am_mcu_apollo.h"
-#include "usertype.h"
-#include "singleportdrive.h"
+#include "general.h"
 
-#define			RED_LED_PIN			46
-#define			GREEN_LED_PIN		48
-#define			MOTO_PIN			4
 
-const uint8_t PORT_PIN[] = {RED_LED_PIN, GREEN_LED_PIN, MOTO_PIN}
+#define			RED_LED_PIN			LED_RED
+#define			GREEN_LED_PIN		LED_GREEN
+#define			MOTO_PIN			MOTO_1
+
+const uint8_t PORT_PIN[] = {RED_LED_PIN, GREEN_LED_PIN, MOTO_PIN};
 
 
 

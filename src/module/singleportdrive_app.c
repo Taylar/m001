@@ -4,6 +4,7 @@
 * @Last Modified by:   zxt
 * @Last Modified time: 2018-05-21 17:57:38
 */
+#include "general.h"
 
 
 // ***************************************************************
@@ -76,7 +77,7 @@ void SinglePortDriveClkCb(void * p_context)
     }
     if(i >= PORT_MAX)
     {
-        Clock_stop(ledProcessClkHandle);
+        app_timer_stop(singlePortTmr);
     }
 }
 
@@ -93,23 +94,22 @@ void SetSinglePort(uint8_t ledId, uint8_t state, uint16_t period1, uint16_t peri
 {
     uint8_t i;
 
-    if(Clock_isActive(ledProcessClkHandle))
-        app_timer_stop(ledProcessClkHandle);
+    app_timer_stop(singlePortTmr);
 
 
     bspSinglePort.PortSet(ledId, state);
 
-    if (period == 0 || times == 0) {
+    if (period1 == 0 || times == 0) {
         /* Unlock resource */
 
-        for(i = 0; i < LED_MAX; i++)
+        for(i = 0; i < PORT_MAX; i++)
         {
             if(singlePortDrive[i].enable)
                 break;
         }
-        if(i < LED_MAX)
+        if(i < PORT_MAX)
         {
-            app_timer_start(ledProcessClkHandle);
+            app_timer_start(singlePortTmr, APP_TIMER_TICKS(SINGLEPORTDRIVE_PERIOD_CLOCK_TIME_MS), NULL);
         }
 
         return;
@@ -118,13 +118,13 @@ void SetSinglePort(uint8_t ledId, uint8_t state, uint16_t period1, uint16_t peri
     singlePortDrive[ledId].enable      = true;
     singlePortDrive[ledId].times       = times;
     singlePortDrive[ledId].state       = state;
-    singlePortDrive[ledId].periodT1Set = (period1 >= SINGLEPORTDRIVE_PERIOD_CLOCK_TIME_MS)?period/SINGLEPORTDRIVE_PERIOD_CLOCK_TIME_MS:1;
-    singlePortDrive[ledId].periodT2Set = (period2 >= SINGLEPORTDRIVE_PERIOD_CLOCK_TIME_MS)?period/SINGLEPORTDRIVE_PERIOD_CLOCK_TIME_MS:1;
+    singlePortDrive[ledId].periodT1Set = (period1 >= SINGLEPORTDRIVE_PERIOD_CLOCK_TIME_MS)?period1/SINGLEPORTDRIVE_PERIOD_CLOCK_TIME_MS:1;
+    singlePortDrive[ledId].periodT2Set = (period2 >= SINGLEPORTDRIVE_PERIOD_CLOCK_TIME_MS)?period2/SINGLEPORTDRIVE_PERIOD_CLOCK_TIME_MS:1;
     singlePortDrive[ledId].periodT1    = singlePortDrive[ledId].periodT1Set;
     singlePortDrive[ledId].periodT2    = singlePortDrive[ledId].periodT2Set;
 
 
-    app_timer_start(ledProcessClkHandle);
+    app_timer_start(singlePortTmr, APP_TIMER_TICKS(SINGLEPORTDRIVE_PERIOD_CLOCK_TIME_MS), NULL);
 }
 
 //***********************************************************************************
@@ -135,7 +135,7 @@ void SetSinglePort(uint8_t ledId, uint8_t state, uint16_t period1, uint16_t peri
 //***********************************************************************************
 void Led_toggle(uint8_t portId)
 {
-	bspSinglePort.PortToggle(ledId);
+	bspSinglePort.PortToggle(portId);
 }
 
 //***********************************************************************************
@@ -146,18 +146,19 @@ void Led_toggle(uint8_t portId)
 //***********************************************************************************
 void Led_set(uint8_t portId, uint8_t status)
 {
-	bspSinglePort.PortSet(ledId, status);
+	bspSinglePort.PortSet(portId, status);
 }
 
 
 
 void SinglePortDriveInit(void)
 {
+    uint32_t err_code   = NRF_SUCCESS;
 	bspSinglePort.BspInit();
 	memset(singlePortDrive, 0, sizeof(singlePortDrive));
 
 	err_code = app_timer_create(&singlePortTmr,
-                                // APP_TIMER_MODE_SINGLE_SHOT,
+                                APP_TIMER_MODE_REPEATED,
                                 SinglePortDriveClkCb);
 }
 

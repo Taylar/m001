@@ -38,7 +38,6 @@ typedef enum _movt_task_msg_id{
 	MOVT_MSG_MC_READ_AIM,
 	MOVT_MSG_MC_FORWARD_FINISH,
 	MOVT_MSG_MC_REVERSE_FINISH,
-	
 } movt_task_msg_id;
 
 

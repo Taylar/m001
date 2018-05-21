@@ -25,7 +25,7 @@ void SetBleEvent(uint32_t event)
 	bleEvent |= event;
 }
 
-void SetBleEvent(uint32_t event)
+void SetKeyEvent(uint32_t event)
 {
 	keyEvent |= event;
 }

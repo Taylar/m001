@@ -30,7 +30,12 @@ extern uint32_t movtEvent;
 
 
 void SetRtcEvent(void);
+
 void SetMovtEvent(uint32_t event);
+
+void SetBleEvent(uint32_t event);
+
+void SetKeyEvent(uint32_t event);
 
 
 void OsalRun(void);

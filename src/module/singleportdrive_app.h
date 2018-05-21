@@ -31,24 +31,11 @@ typedef struct
 }single_port_set_para_s;
 
 
-typedef struct
-{
-	func *		Init;
-	func *		MotoPeriodProcess;
-	func *		GreenLedPeriodProcess;
-	func *		RedLedPeriodProcess;
-	void		(*FinishCbInit)(void (*Cb)(uint16_t portType));
-	void		(*PortSet)(single_port_set_para_s *setPara);
-	void		(*PortOn)(uint16_t portType);
-	void		(*PortOff)(uint16_t portType);
-    uint16_t    (*ReadState)(void);
-}single_port_s;
-
-extern const single_port_s singlePort;
 
 
 
-void SetSinglePort(single_port_set_para_s *setPara);
+
+void SetSinglePort(uint8_t ledId, uint8_t state, uint16_t period1, uint16_t period2, uint8_t times);
 
 void SinglePortDriveInit(void);
 

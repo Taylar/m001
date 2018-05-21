@@ -15,8 +15,8 @@ typedef enum
 typedef struct
 {
 	void		(*BspInit)(void);
-	void		(*PortSet)(uint8_t portIdx, uint8_t state)
-	void		(*PortToggle)(uint8_t portIdx)
+	void		(*PortSet)(uint8_t portIdx, uint8_t state);
+	void		(*PortToggle)(uint8_t portIdx);
 } bsp_singleport_s;
 
 extern const bsp_singleport_s bspSinglePort;
@@ -24,7 +24,7 @@ extern const bsp_singleport_s bspSinglePort;
 // function declaration
 void BspSinglePortInit(void);
 
-void BspPortSet(uint8_t portIdx, uint8_t state)
+void BspPortSet(uint8_t portIdx, uint8_t state);
 
 
 #endif		//SINGLEPORTDRIVE_H

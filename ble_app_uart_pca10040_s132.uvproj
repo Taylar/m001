@@ -532,6 +532,11 @@
               <FileType>5</FileType>
               <FilePath>.\src\sdk_config.h</FilePath>
             </File>
+            <File>
+              <FileName>osal.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\osal.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -547,6 +552,11 @@
               <FileType>1</FileType>
               <FilePath>.\src\module\rtc_app.c</FilePath>
             </File>
+            <File>
+              <FileName>singleportdrive_app.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\module\singleportdrive_app.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -561,6 +571,11 @@
               <FileName>rtc.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\src\user_driver\rtc.c</FilePath>
+            </File>
+            <File>
+              <FileName>singleportdrive.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\user_driver\singleportdrive.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -3971,6 +3986,11 @@
               <FileType>5</FileType>
               <FilePath>.\src\sdk_config.h</FilePath>
             </File>
+            <File>
+              <FileName>osal.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\osal.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -3986,6 +4006,11 @@
               <FileType>1</FileType>
               <FilePath>.\src\module\rtc_app.c</FilePath>
             </File>
+            <File>
+              <FileName>singleportdrive_app.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\module\singleportdrive_app.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -4000,6 +4025,11 @@
               <FileName>rtc.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\src\user_driver\rtc.c</FilePath>
+            </File>
+            <File>
+              <FileName>singleportdrive.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\user_driver\singleportdrive.c</FilePath>
             </File>
           </Files>
         </Group>

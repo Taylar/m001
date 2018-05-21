@@ -635,7 +635,6 @@ static void advertising_init(void)
  */
 static void buttons_leds_init(bool * p_erase_bonds)
 {
-    bsp_event_t startup_event;
 
     uint32_t err_code = bsp_init(BSP_INIT_LEDS | BSP_INIT_BUTTONS, bsp_event_handler);
     APP_ERROR_CHECK(err_code);
@@ -699,7 +698,6 @@ void rtcisr(void)
 int main(void)
 {
     bool erase_bonds;
-    uint32_t  temp;
     
     // Initialize.
     uart_init();
@@ -732,18 +730,8 @@ int main(void)
     // Enter main loop.
     for (;;)
     {
-
-        temp = movtForwardCnt;
-        movtForwardCnt= 0;
-        while(temp--)
-        {
-            movtForwardCnt = 0;
-            MovtMClockForwardFinish();
-        }
-
+        OsalRun();        
         idle_state_handle();
-
-
     }
 }
 
