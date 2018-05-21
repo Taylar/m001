@@ -577,6 +577,11 @@
               <FileType>1</FileType>
               <FilePath>.\src\user_driver\singleportdrive.c</FilePath>
             </File>
+            <File>
+              <FileName>accel_sensor.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\user_driver\accel_sensor.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -1511,6 +1516,21 @@
               <FileName>nrfx_rtc.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\..\..\..\..\modules\nrfx\drivers\src\nrfx_rtc.c</FilePath>
+            </File>
+            <File>
+              <FileName>nrfx_spi.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\..\..\modules\nrfx\drivers\src\nrfx_spi.c</FilePath>
+            </File>
+            <File>
+              <FileName>nrfx_spim.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\..\..\modules\nrfx\drivers\src\nrfx_spim.c</FilePath>
+            </File>
+            <File>
+              <FileName>nrf_drv_spi.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\..\..\integration\nrfx\legacy\nrf_drv_spi.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -4031,6 +4051,11 @@
               <FileType>1</FileType>
               <FilePath>.\src\user_driver\singleportdrive.c</FilePath>
             </File>
+            <File>
+              <FileName>accel_sensor.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\user_driver\accel_sensor.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -4965,6 +4990,21 @@
               <FileName>nrfx_rtc.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\..\..\..\..\modules\nrfx\drivers\src\nrfx_rtc.c</FilePath>
+            </File>
+            <File>
+              <FileName>nrfx_spi.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\..\..\modules\nrfx\drivers\src\nrfx_spi.c</FilePath>
+            </File>
+            <File>
+              <FileName>nrfx_spim.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\..\..\modules\nrfx\drivers\src\nrfx_spim.c</FilePath>
+            </File>
+            <File>
+              <FileName>nrf_drv_spi.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\..\..\integration\nrfx\legacy\nrf_drv_spi.c</FilePath>
             </File>
           </Files>
         </Group>

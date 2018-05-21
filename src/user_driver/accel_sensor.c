@@ -1,15 +1,15 @@
-#include "am_mcu_apollo.h"
-#include "usertype.h"
-#include "interrupt.h"
-#include "accel_sensor.h"
+#include "general.h"
 
 
 //kx022 pin
-#define			KX022_CS_PIN			11
+#define			SPI_SS_PIN			(8)
+#define			SPI_MISO_PIN		(30)
+#define			SPI_MOSI_PIN		(31)
+#define			SPI_SCK_PIN			(4)
 
 // *************************************************
-#define		Kx022_CS_Enable()				nrf_gpio_pin_write(KX022_CS_PIN, 0)
-#define		Kx022_CS_Disable()				nrf_gpio_pin_write(KX022_CS_PIN, 1)
+#define		Kx022_CS_Enable()				nrf_gpio_pin_write(SPI_SS_PIN, 0)
+#define		Kx022_CS_Disable()				nrf_gpio_pin_write(SPI_SS_PIN, 1)
 
 
 
@@ -73,35 +73,32 @@
 #define SELF_TEST		(0x60)		// RW
 
 
-static am_hal_iom_config_t SPI_0_Config = {
-    .ui32InterfaceMode = AM_HAL_IOM_SPIMODE,
-    .ui32ClockFrequency = AM_HAL_IOM_8MHZ,
-    .bSPHA = 0,
-    .bSPOL = 0,
-    .ui8WriteThreshold = 0,
-    .ui8ReadThreshold = 120,
-};
+#define SPI_INSTANCE  0 /**< SPI instance index. */
+static const nrf_drv_spi_t spi = NRF_DRV_SPI_INSTANCE(SPI_INSTANCE);  /**< SPI instance. */
+static volatile bool spi_xfer_done;  /**< Flag used to indicate that SPI instance completed the transfer. */
+
 
 
 void BspSpi_0_Init(void)
 {
-    am_hal_gpio_pin_config(5,AM_HAL_PIN_5_M0SCK);
-    am_hal_gpio_pin_config(6,AM_HAL_PIN_6_M0MISO);
-    am_hal_gpio_pin_config(7,AM_HAL_PIN_7_M0MOSI);
-    am_hal_gpio_pin_config(KX022_CS_PIN,AM_HAL_PIN_OUTPUT);
-    nrf_gpio_pin_write(KX022_CS_PIN, 1);
 
-    am_hal_iom_config(0, &SPI_0_Config);
+	nrf_drv_spi_config_t spi_config = NRF_DRV_SPI_DEFAULT_CONFIG;
 
-    am_hal_iom_enable(0);
+    spi_config.ss_pin   = NULL;
+    spi_config.miso_pin = SPI_MISO_PIN;
+    spi_config.mosi_pin = SPI_MOSI_PIN;
+    spi_config.sck_pin  = SPI_SCK_PIN;
+
+    APP_ERROR_CHECK(nrf_drv_spi_init(&spi, &spi_config, NULL, NULL));
+
 }
 
 
 static void SPI_WriteData(uint8_t regAddr, uint8_t* data_Point, uint16_t length )
 {
 	Kx022_CS_Enable();
-	am_hal_iom_spi_write(0, 0, (uint32_t*)data_Point, length, AM_HAL_IOM_OFFSET(regAddr));
-	am_hal_iom_poll_complete(0);
+	nrf_drv_spi_transfer(&spi, &regAddr, 1, NULL, NULL);
+	nrf_drv_spi_transfer(&spi, data_Point, length, NULL, NULL);
 	Kx022_CS_Disable();
 }
 
@@ -110,22 +107,23 @@ static void SPI_ReadData(uint8_t regAddr, uint8_t* data_Point, uint16_t length)
 {
 	regAddr |= 0x80;
 	Kx022_CS_Enable();
-	am_hal_iom_spi_read(0, 0, (uint32_t*)data_Point, length, AM_HAL_IOM_OFFSET(regAddr));
+	nrf_drv_spi_transfer(&spi, &regAddr, 1, NULL, NULL);
+	nrf_drv_spi_transfer(&spi, NULL, NULL, data_Point, length);
 	Kx022_CS_Disable();
 }
 
 //disable hw SPI 1 of ambiq 
 void BspSpi_0_Disable(void)
 {
-    am_hal_iom_disable(0);
-    nrf_gpio_cfg_output(5);
-    nrf_gpio_cfg_output(6);
-    nrf_gpio_cfg_output(7);
-    nrf_gpio_cfg_output(KX022_CS_PIN);
-    nrf_gpio_pin_write(KX022_CS_PIN, 1);
-    am_hal_gpio_out_bit_clear(5);
-    am_hal_gpio_out_bit_clear(6);
-    am_hal_gpio_out_bit_clear(7);
+    nrf_drv_spi_uninit(&spi);
+    nrf_gpio_cfg_output(SPI_MISO_PIN);
+    nrf_gpio_cfg_output(SPI_MOSI_PIN);
+    nrf_gpio_cfg_output(SPI_SCK_PIN);
+    nrf_gpio_cfg_output(SPI_SS_PIN);
+    nrf_gpio_pin_write(SPI_SS_PIN, 1);
+    nrf_gpio_pin_write(SPI_MISO_PIN, 0);
+    nrf_gpio_pin_write(SPI_MOSI_PIN, 0);
+    nrf_gpio_pin_write(SPI_SCK_PIN, 0);
 }
 
 

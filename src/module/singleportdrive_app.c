@@ -154,6 +154,7 @@ void Led_set(uint8_t portId, uint8_t status)
 void SinglePortDriveInit(void)
 {
     uint32_t err_code   = NRF_SUCCESS;
+    
 	bspSinglePort.BspInit();
 	memset(singlePortDrive, 0, sizeof(singlePortDrive));
 

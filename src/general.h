@@ -9,6 +9,9 @@
 // bsp
 #include "boards.h"
 
+// mcu driver
+#include "nrf_drv_spi.h"
+
 // mcu lib
 #include "app_timer.h"
 
@@ -16,6 +19,7 @@
 #include "movt.h"
 #include "rtc.h"
 #include "singleportdrive.h"
+#include "accel_sensor.h"
 
 // module
 #include "movt_app.h"
