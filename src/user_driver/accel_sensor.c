@@ -210,5 +210,15 @@ uint16_t BspKx022_Selftest(void)
 
 
 
+// accel
+const bsp_accel_s 	bspAccel = 
+{
+	.BspInterfaceEnable		= BspSpi_0_Init,
+	.BspInterfaceDisable	= BspSpi_0_Disable,
+	.Sleep					= BspKx022_Sleep,
+	.SelfTest				= BspKx022_Selftest,
+	.SampleSet				= BspKx022Set_25HzSample_Buf,
+	.BufRead				= BspKx022_Readbuf,
+};
 
 

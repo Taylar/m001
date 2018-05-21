@@ -11,15 +11,17 @@
 
 // mcu driver
 #include "nrf_drv_spi.h"
-
+#include "nrf_drv_gpiote.h"
 // mcu lib
 #include "app_timer.h"
+#include "app_button.h"
 
 // user driver
 #include "movt.h"
 #include "rtc.h"
 #include "singleportdrive.h"
 #include "accel_sensor.h"
+#include "key.h"
 
 // module
 #include "movt_app.h"
@@ -29,9 +31,10 @@
 // osal
 #include "osal.h"
 
-
-
-
+// app
+#include "m001_app.h"
+#include "key_app.h"
+#include "ble_app.h"
 
 
 #endif	// GENERAL_H_

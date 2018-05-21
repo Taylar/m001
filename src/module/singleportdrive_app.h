@@ -32,24 +32,14 @@ typedef struct
 
 
 
-
-
-
 void SetSinglePort(uint8_t ledId, uint8_t state, uint16_t period1, uint16_t period2, uint8_t times);
+
+void SinglePortToggle(uint8_t portId);
+
+void SinglePortSetPolar(uint8_t portId, uint8_t status);
 
 void SinglePortDriveInit(void);
 
-void SinglePortFinishCbInit(void (*Cb)(uint16_t portType));
 
-void SinglePortPeriodProcessMoto(void);
 
-void SinglePortPeriodProcessGreenLed(void);
-
-void SinglePortPeriodProcessRedLed(void);
-
-void SinglePortOn(uint16_t portType);
-
-void SinglePortOff(uint16_t portType);
-
-uint16_t ReadSinglePortState(void);
 #endif			// SINGLEPORTDRIVE_APP_H

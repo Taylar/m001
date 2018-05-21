@@ -21,11 +21,6 @@ extern uint32_t movtEvent;
 #define		BLE_DATA_EVENT			0x0004
 
 
-// key event
-#define		KEY_3H_PUSH_EVENT			0X0001
-#define		KEY_3H_RELEASE_EVENT		0X0002
-#define		KEY_3H_3SHOLD_EVENT			0X0004
-#define		KEY_3H_6SHOLD_EVENT			0X0008
 
 
 

@@ -144,29 +144,17 @@ typedef enum
  */
 typedef enum
 {
-    BSP_EVENT_NOTHING = 0,                  /**< Assign this event to an action to prevent the action from generating an event (disable the action). */
-    BSP_EVENT_DEFAULT,                      /**< Assign this event to an action to assign the default event to the action. */
-    BSP_EVENT_CLEAR_BONDING_DATA,           /**< Persistent bonding data should be erased. */
-    BSP_EVENT_CLEAR_ALERT,                  /**< An alert should be cleared. */
-    BSP_EVENT_DISCONNECT,                   /**< A link should be disconnected. */
-    BSP_EVENT_ADVERTISING_START,            /**< The device should start advertising. */
-    BSP_EVENT_ADVERTISING_STOP,             /**< The device should stop advertising. */
-    BSP_EVENT_WHITELIST_OFF,                /**< The device should remove its advertising whitelist. */
-    BSP_EVENT_BOND,                         /**< The device should bond to the currently connected peer. */
-    BSP_EVENT_RESET,                        /**< The device should reset. */
-    BSP_EVENT_SLEEP,                        /**< The device should enter sleep mode. */
-    BSP_EVENT_WAKEUP,                       /**< The device should wake up from sleep mode. */
-    BSP_EVENT_SYSOFF,                       /**< The device should enter system off mode (without wakeup). */
-    BSP_EVENT_DFU,                          /**< The device should enter DFU mode. */
     BSP_EVENT_KEY_0,                        /**< Default event of the push action of BSP_BUTTON_0 (only if this button is present). */
     BSP_EVENT_KEY_1,                        /**< Default event of the push action of BSP_BUTTON_1 (only if this button is present). */
     BSP_EVENT_KEY_2,                        /**< Default event of the push action of BSP_BUTTON_2 (only if this button is present). */
-    BSP_EVENT_KEY_3,                        /**< Default event of the push action of BSP_BUTTON_3 (only if this button is present). */
-    BSP_EVENT_KEY_4,                        /**< Default event of the push action of BSP_BUTTON_4 (only if this button is present). */
-    BSP_EVENT_KEY_5,                        /**< Default event of the push action of BSP_BUTTON_5 (only if this button is present). */
-    BSP_EVENT_KEY_6,                        /**< Default event of the push action of BSP_BUTTON_6 (only if this button is present). */
-    BSP_EVENT_KEY_7,                        /**< Default event of the push action of BSP_BUTTON_7 (only if this button is present). */
-    BSP_EVENT_KEY_LAST = BSP_EVENT_KEY_7,
+
+    BSP_EVENT_KEY_0_R,                        /**< Default event of the release action of BSP_BUTTON_0 (only if this button is present). */
+    BSP_EVENT_KEY_1_R,                        /**< Default event of the release action of BSP_BUTTON_1 (only if this button is present). */
+    BSP_EVENT_KEY_2_R,                        /**< Default event of the release action of BSP_BUTTON_2 (only if this button is present). */
+
+    BSP_EVENT_KEY_0_L,                        /**< Default event of the long action of BSP_BUTTON_0 (only if this button is present). */
+    BSP_EVENT_KEY_1_L,                        /**< Default event of the long action of BSP_BUTTON_1 (only if this button is present). */
+    BSP_EVENT_KEY_2_L,                        /**< Default event of the long action of BSP_BUTTON_2 (only if this button is present). */
 } bsp_event_t;
 
 

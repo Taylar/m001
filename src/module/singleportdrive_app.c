@@ -133,7 +133,7 @@ void SetSinglePort(uint8_t ledId, uint8_t state, uint16_t period1, uint16_t peri
 //      id:     allow multi led
 //
 //***********************************************************************************
-void Led_toggle(uint8_t portId)
+void SinglePortToggle(uint8_t portId)
 {
 	bspSinglePort.PortToggle(portId);
 }
@@ -144,7 +144,7 @@ void Led_toggle(uint8_t portId)
 //      id:     allow multi led
 //
 //***********************************************************************************
-void Led_set(uint8_t portId, uint8_t status)
+void SinglePortSetPolar(uint8_t portId, uint8_t status)
 {
 	bspSinglePort.PortSet(portId, status);
 }
