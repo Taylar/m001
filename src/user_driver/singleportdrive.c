@@ -12,6 +12,7 @@ const uint8_t PORT_PIN[] = {RED_LED_PIN, GREEN_LED_PIN, MOTO_PIN};
 void BspSinglePortInit(void)
 {
     bsp_board_init(BSP_INIT_LEDS);
+    BspPortSet(MOTO,0);
 }
 
 

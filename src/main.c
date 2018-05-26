@@ -84,7 +84,7 @@
 
 #define APP_BLE_CONN_CFG_TAG            1                                           /**< A tag identifying the SoftDevice BLE configuration. */
 
-static char m001BraodcastName[16] = "m001";
+char m001BraodcastName[16] = "M001A";
 
 #define DEVICE_NAME                     m001BraodcastName                               /**< Name of device. Will be included in the advertising data. */
 #define NUS_SERVICE_UUID_TYPE           BLE_UUID_TYPE_VENDOR_BEGIN                  /**< UUID type for the Nordic UART Service (vendor specific). */

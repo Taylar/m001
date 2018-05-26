@@ -59,6 +59,9 @@ void MovtMClockForwardFinish(void);
 
 void MovtMClockReverseFinish(void);
 
+uint16_t GetMovtCurPos(void);
+
+uint16_t GetMovtAimPos(void);
 
 
 #endif	//MOVTAPP_H

@@ -49,8 +49,8 @@ typedef struct
 	uint8_t		state;
 	uint8_t		repeat;
 	uint8_t		stop;
-	uint8_t		*clockForward;
-	uint8_t		*clockReverse;
+	uint16_t		*clockForward;
+	uint16_t		*clockReverse;
 	void		(*timerStart)(uint32_t cnt);
 	void		(*timerStop)(void);
 } movt_att_s;

@@ -31,14 +31,14 @@ void MovtclockCompare(movt_att_s *movtCompare);
 
 
 // 31us every cnt
-static const uint8_t tinyForwardClock_M[] = 
+static const uint16_t tinyForwardClock_M[] = 
 {
-	200,6,14,14,14,14,14,14,14,14,14,14,14,6,100,255
+	200*31,6*31,14*31,14*31,14*31,14*31,14*31,14*31,14*31,14*31,14*31,14*31,14*31,6*31,100*31,255*31
 };
 
-static const uint8_t tinyReverseClock_M[] = 
+static const uint16_t tinyReverseClock_M[] = 
 {
-	255,7,27,34,112,112,13,13,13,13,13,13,13,13,255,255
+	255*31,7*31,27*31,34*31,112*31,112*31,13*31,13*31,13*31,13*31,13*31,13*31,13*31,13*31,255*31,255*31
 };
 
 
@@ -338,8 +338,8 @@ void BspMovtInit(void)
 	movtConfig[MOVT_M_CLOCK].state              = MOVT_STANDBY;
 	movtConfig[MOVT_M_CLOCK].repeat             = 0;
 	movtConfig[MOVT_M_CLOCK].stop               = 0;
-	movtConfig[MOVT_M_CLOCK].clockForward       = (uint8_t *)tinyForwardClock_M;
-	movtConfig[MOVT_M_CLOCK].clockReverse       = (uint8_t *)tinyReverseClock_M;
+	movtConfig[MOVT_M_CLOCK].clockForward       = (uint16_t *)tinyForwardClock_M;
+	movtConfig[MOVT_M_CLOCK].clockReverse       = (uint16_t *)tinyReverseClock_M;
 	movtConfig[MOVT_M_CLOCK].timerStart         = BspMovtNormalTimerStart;
 	movtConfig[MOVT_M_CLOCK].timerStop          = BspMovtNormalTimerStop;
 

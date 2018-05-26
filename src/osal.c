@@ -42,7 +42,7 @@ void NullFunc(void)
 void OsalRun(void)
 {
 	uint32_t eventTemp;
-	movt_task_msg_t msg;
+
 
 	if(bleEvent)
 	{
@@ -73,6 +73,16 @@ void OsalRun(void)
         }
 	}
 
+	if(keyEvent)
+	{
+		__disable_irq();
+		eventTemp = keyEvent;
+		keyEvent = 0;
+        __enable_irq();
+
+        M001_KeyApp(eventTemp);
+	}
+
 	if(rtcCntEvent)
 	{
         __disable_irq();
@@ -82,9 +92,7 @@ void OsalRun(void)
 
         while(eventTemp--)
         {
-        	rtcApp.SecPeriodProcess();
-        	msg.id = MOVT_MSG_MC_FORWARD;
-			MovtEventSet(msg);
+        	M001_RtcApp();
         }
 	}
 

@@ -17,8 +17,8 @@
 #ifndef		BSP_KEY_PIN
 #define		BSP_KEY_PIN
 
-#define		KEY_S0_PIN					13
-#define		KEY_S1_PIN					14
+#define		KEY_S0_PIN					14
+#define		KEY_S1_PIN					13
 #define		KEY_S2_PIN					17
 
 #endif
@@ -89,7 +89,12 @@ void BspKeyInit(void)
 		bspDefineKey[i].Hold6sKey	= null_isr;
 	}
 
-
+	if (!nrf_drv_gpiote_is_init())
+    {
+        err_code = nrf_drv_gpiote_init();
+//        VERIFY_SUCCESS(err_code);
+    }
+    
 
     nrf_drv_gpiote_in_config_t config = GPIOTE_CONFIG_IN_SENSE_TOGGLE(false);
 	

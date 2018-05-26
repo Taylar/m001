@@ -547,6 +547,21 @@
               <FileType>1</FileType>
               <FilePath>.\src\app\m001_app.c</FilePath>
             </File>
+            <File>
+              <FileName>actionrecongnition.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\app\actionrecongnition.c</FilePath>
+            </File>
+            <File>
+              <FileName>daily_sport.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\app\daily_sport.c</FilePath>
+            </File>
+            <File>
+              <FileName>display.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\app\display.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -571,6 +586,16 @@
               <FileName>key_app.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\src\module\key_app.c</FilePath>
+            </File>
+            <File>
+              <FileName>accel_app.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\module\accel_app.c</FilePath>
+            </File>
+            <File>
+              <FileName>lis3dh.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\module\lis3dh.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -4029,6 +4054,21 @@
               <FileType>1</FileType>
               <FilePath>.\src\app\m001_app.c</FilePath>
             </File>
+            <File>
+              <FileName>actionrecongnition.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\app\actionrecongnition.c</FilePath>
+            </File>
+            <File>
+              <FileName>daily_sport.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\app\daily_sport.c</FilePath>
+            </File>
+            <File>
+              <FileName>display.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\app\display.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -4053,6 +4093,16 @@
               <FileName>key_app.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\src\module\key_app.c</FilePath>
+            </File>
+            <File>
+              <FileName>accel_app.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\module\accel_app.c</FilePath>
+            </File>
+            <File>
+              <FileName>lis3dh.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\module\lis3dh.c</FilePath>
             </File>
           </Files>
         </Group>

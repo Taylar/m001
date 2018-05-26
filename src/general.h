@@ -36,6 +36,16 @@
 #include "key_app.h"
 #include "ble_app.h"
 #include "key_app.h"
+#include "actionrecongnition.h"
+#include "accel_app.h"
+#include "daily_sport.h"
+#include "lis3dh.h"
+#include "display.h"
+
+
+#include "nrf_log.h"
+#include "nrf_log_ctrl.h"
+#include "nrf_log_default_backends.h"
 
 
 
@@ -45,12 +55,19 @@
 
 #define		SYS_APP_HANDLE_NUM  1
 
+// ************************version**********************************
+#define		FW_VERSION			0X0001
+#define		BLE_PRO_VER			0X0001
+
 
 extern uint16_t	sysAppHandle;
 
+extern char m001BraodcastName[16];
 
-
-
+typedef enum
+{
+	SYS_APP_HANDLE_DAILY		= 0,
+} sys_app_handle_t;
 
 
 #endif	// GENERAL_H_

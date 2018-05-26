@@ -50,9 +50,9 @@ extern "C" {
 // ******************************************************************
 #define LEDS_NUMBER    3
 
-#define LED_RED        17
-#define LED_GREEN      18
-#define MOTO_1         19
+#define LED_RED        26
+#define LED_GREEN      27
+#define MOTO_1         6
 #define LED_4          20
 
 #define LEDS_ACTIVE_STATE 0

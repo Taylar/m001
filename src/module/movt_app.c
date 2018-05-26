@@ -218,4 +218,13 @@ void MovtEventSet(movt_task_msg_t msg)
 
 
 
+uint16_t GetMovtCurPos(void)
+{
+	return bsp_movt.clockM->currentPosition;
+}
 
+
+uint16_t GetMovtAimPos(void)
+{
+	return bsp_movt.clockM->aimPosition;
+}

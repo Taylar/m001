@@ -1,6 +1,4 @@
-#include "usertype.h"
-#include "interrupt.h"
-#include "accel_app.h"
+#include "general.h"
 
 
 
@@ -8,7 +6,10 @@
 
 
 
-
-
+// accel
+const accel_s 	accel = 
+{
+	(bsp_accel_s*)(&bspAccel),
+};
 
 
