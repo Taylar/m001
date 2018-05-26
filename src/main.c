@@ -663,12 +663,12 @@ int main(void)
     NRF_LOG_INFO("Debug logging for UART over RTT started.");
     // advertising_start();
 
-    M001_AppInit();
+
     // Enter main loop.
     for (;;)
     {
-       // OsalRun();        
-      //  idle_state_handle();
+        OsalRun();        
+        idle_state_handle();
     }
 }
 
