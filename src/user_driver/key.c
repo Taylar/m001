@@ -17,9 +17,9 @@
 #ifndef		BSP_KEY_PIN
 #define		BSP_KEY_PIN
 
-#define		KEY_S0_PIN					29
-#define		KEY_S1_PIN					28
-#define		KEY_S2_PIN					30
+#define		KEY_S0_PIN					13
+#define		KEY_S1_PIN					14
+#define		KEY_S2_PIN					17
 
 #endif
 
@@ -29,7 +29,6 @@
 
 // pin press
 #define		KEY_PRESSING			0
-
 
 
 
@@ -94,11 +93,11 @@ void BspKeyInit(void)
 
     nrf_drv_gpiote_in_config_t config = GPIOTE_CONFIG_IN_SENSE_TOGGLE(false);
 	
-    config.pull = GPIO_PIN_CNF_PULL_Pullup;
+    config.pull = NRF_GPIO_PIN_PULLUP;
 
-    err_code = nrf_drv_gpiote_in_init(KEY_S0_PIN, &config, ReadState_S0);
-    err_code = nrf_drv_gpiote_in_init(KEY_S1_PIN, &config, ReadState_S1);
-    err_code = nrf_drv_gpiote_in_init(KEY_S2_PIN, &config, ReadState_S2);
+    err_code = nrf_drv_gpiote_in_init(KEY_S0_PIN, &config, (nrfx_gpiote_evt_handler_t)BspKeyS0_Isr);
+    err_code = nrf_drv_gpiote_in_init(KEY_S1_PIN, &config, (nrfx_gpiote_evt_handler_t)BspKeyS1_Isr);
+    err_code = nrf_drv_gpiote_in_init(KEY_S2_PIN, &config, (nrfx_gpiote_evt_handler_t)BspKeyS2_Isr);
 
     for(i = 0; i < KEY_MAX_NUM; i++)
     {
@@ -115,7 +114,7 @@ void BspKeyInit(void)
 }
 
 
-void BspKeyTimerIsr(void)
+void BspKeyTimerIsr(void * p_context)
 {
 	if(keyDelayFlag == KEY_HOLE)
 	{

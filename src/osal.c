@@ -1,7 +1,8 @@
 #include "general.h"
 
-uint32_t rtcCntEvent;
+uint16_t	sysAppHandle;
 
+uint32_t rtcCntEvent;
 
 uint32_t movtEvent;
 
@@ -30,6 +31,11 @@ void SetKeyEvent(uint32_t event)
 	keyEvent |= event;
 }
 
+
+void NullFunc(void)
+{
+	
+}
 
 
 

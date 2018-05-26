@@ -68,8 +68,8 @@ extern "C" {
 // ******************************************************************
 #define MOVTS_NUMBER    2
 
-#define MOVT_C_A        20
-#define MOVT_C_B        21
+#define MOVT_C_A        12
+#define MOVT_C_B        25
 
 #define LEDS_ACTIVE_STATE 0
 
@@ -96,8 +96,8 @@ extern "C" {
 #define BSP_BUTTON_2   BUTTON_3
 //#define BSP_BUTTON_3   BUTTON_4
 
-#define RX_PIN_NUMBER  8
-#define TX_PIN_NUMBER  6
+#define RX_PIN_NUMBER  22
+#define TX_PIN_NUMBER  23
 #define CTS_PIN_NUMBER 7
 #define RTS_PIN_NUMBER 5
 #define HWFC           true

@@ -22,7 +22,7 @@ extern uint32_t movtEvent;
 
 
 
-
+void NullFunc(void);
 
 void SetRtcEvent(void);
 

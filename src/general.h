@@ -35,6 +35,18 @@
 #include "m001_app.h"
 #include "key_app.h"
 #include "ble_app.h"
+#include "key_app.h"
+
+
+
+#define		SYS_APP_HANDLE_NUM  1
+
+
+extern uint16_t	sysAppHandle;
+
+
+
+
 
 
 #endif	// GENERAL_H_

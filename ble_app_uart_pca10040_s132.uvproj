@@ -567,6 +567,11 @@
               <FileType>1</FileType>
               <FilePath>.\src\module\singleportdrive_app.c</FilePath>
             </File>
+            <File>
+              <FileName>key_app.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\module\key_app.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -4043,6 +4048,11 @@
               <FileName>singleportdrive_app.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\src\module\singleportdrive_app.c</FilePath>
+            </File>
+            <File>
+              <FileName>key_app.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\module\key_app.c</FilePath>
             </File>
           </Files>
         </Group>

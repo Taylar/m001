@@ -331,7 +331,7 @@ static void sleep_mode_enter(void)
  */
 static void on_adv_evt(ble_adv_evt_t ble_adv_evt)
 {
-    uint32_t err_code;
+
 
     switch (ble_adv_evt)
     {
@@ -655,9 +655,9 @@ int main(void)
     // Start execution.
     printf("\r\nUART started.\r\n");
     NRF_LOG_INFO("Debug logging for UART over RTT started.");
-    advertising_start();
+    // advertising_start();
 
-    
+    M001_AppInit();
     // Enter main loop.
     for (;;)
     {

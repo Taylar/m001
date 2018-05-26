@@ -33,7 +33,8 @@ void  M001_AppInit(void)
 	rtcApp.Init();
     rtcApp.Cb_SecIsrInit(rtcisr);
 
-
+    keyRegister.Init();
+    
 }
 
 

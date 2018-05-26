@@ -5,10 +5,10 @@
 #include "extflash.h"
 
 
-#define 		FLASH_SCLK_PIN				(0)
-#define 		FLASH_SDO_PIN				(1)
-#define 		FLASH_SDI_PIN				(2)
-#define 		FLASH_CS_PIN				(3)
+#define 		FLASH_SCLK_PIN				(5)
+#define 		FLASH_SDO_PIN				(28)
+#define 		FLASH_SDI_PIN				(29)
+#define 		FLASH_CS_PIN				(11)
 
 #define			ExtFlashCS_Enable()					nrf_gpio_pin_write(FLASH_CS_PIN, 0)
 #define			ExtFlashCS_Disable()				nrf_gpio_pin_write(FLASH_CS_PIN, 1)

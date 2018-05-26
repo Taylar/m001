@@ -49,7 +49,7 @@ void BspKeyS1_Isr(void);
 
 void BspKeyS2_Isr(void);
 
-void BspKeyTimerIsr(void);
+void BspKeyTimerIsr(void * p_context);
 
 uint8_t ReadState_S0(void);
 

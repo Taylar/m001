@@ -1,9 +1,9 @@
 #include "general.h"
 
 
-#define			RED_LED_PIN			LED_RED
-#define			GREEN_LED_PIN		LED_GREEN
-#define			MOTO_PIN			MOTO_1
+#define			RED_LED_PIN			26
+#define			GREEN_LED_PIN		27
+#define			MOTO_PIN			6
 
 const uint8_t PORT_PIN[] = {RED_LED_PIN, GREEN_LED_PIN, MOTO_PIN};
 
