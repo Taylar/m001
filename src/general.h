@@ -39,6 +39,10 @@
 
 
 
+#define 	SUPPORT_UART_PRINTF 
+
+
+
 #define		SYS_APP_HANDLE_NUM  1
 
 

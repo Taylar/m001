@@ -23,17 +23,17 @@ void  M001_AppInit(void)
 	phoneMode = PHONE_NORMAL_MODE;
 	bleMode   = BLE_SLEEP_MODE;
 
-	SinglePortDriveInit();
+	//SinglePortDriveInit();
 
 	MovtAppInit();
 
-	bspAccel.BspInterfaceEnable();
-	bspAccel.Sleep();
+	//bspAccel.BspInterfaceEnable();
+	//bspAccel.Sleep();
 
-	rtcApp.Init();
-    rtcApp.Cb_SecIsrInit(rtcisr);
+	//rtcApp.Init();
+    //rtcApp.Cb_SecIsrInit(rtcisr);
 
-    keyRegister.Init();
+    //keyRegister.Init();
     
 }
 

@@ -637,7 +637,11 @@ int main(void)
 
     
     // Initialize.
+#ifdef      SUPPORT_UART_PRINTF
+    //nrf_gpio_cfg_input(RX_PIN_NUMBER, BUTTON_PULL);
     uart_init();
+    nrf_gpio_cfg_input(RX_PIN_NUMBER,NRF_GPIO_PIN_PULLUP);
+#endif
     log_init();
     timers_init();
 
@@ -653,7 +657,9 @@ int main(void)
     conn_params_init();
 
     // Start execution.
+#ifdef      SUPPORT_UART_PRINTF
     printf("\r\nUART started.\r\n");
+#endif
     NRF_LOG_INFO("Debug logging for UART over RTT started.");
     // advertising_start();
 
@@ -661,8 +667,8 @@ int main(void)
     // Enter main loop.
     for (;;)
     {
-        OsalRun();        
-        idle_state_handle();
+       // OsalRun();        
+      //  idle_state_handle();
     }
 }
 
