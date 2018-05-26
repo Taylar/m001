@@ -11,7 +11,7 @@ typedef struct
 	uint8_t length;
 	uint16_t id;
 	uint8_t load[256];
-}protocal_msg_t;
+}__attribute__((packed)) protocal_msg_t;
 
 enum 
 {

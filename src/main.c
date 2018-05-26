@@ -199,31 +199,49 @@ static void nrf_qwr_error_handler(uint32_t nrf_error)
 /**@snippet [Handling the data received over BLE] */
 static void nus_data_handler(ble_nus_evt_t * p_evt)
 {
-
-    if (p_evt->type == BLE_NUS_EVT_RX_DATA)
+    switch(p_evt->type)
     {
-        uint32_t err_code;
+        case BLE_NUS_EVT_CMD_DATA:
+        SetBleEvent(BLE_COMMAND_EVENT);
+        memcpy((uint8_t*)&bleRecMsg, p_evt->params.rx_data.p_data, p_evt->params.rx_data.length);
+        break;
 
-        NRF_LOG_DEBUG("Received data from BLE NUS. Writing data on UART.");
-        NRF_LOG_HEXDUMP_DEBUG(p_evt->params.rx_data.p_data, p_evt->params.rx_data.length);
+        case BLE_NUS_EVT_LDT_DATA:
+        SetBleEvent(BLE_HIS_DATA_EVENT);
+        memcpy((uint8_t*)&bleRecMsg, p_evt->params.rx_data.p_data, p_evt->params.rx_data.length);
+        break;
 
-        for (uint32_t i = 0; i < p_evt->params.rx_data.length; i++)
-        {
-            do
-            {
-                err_code = app_uart_put(p_evt->params.rx_data.p_data[i]);
-                if ((err_code != NRF_SUCCESS) && (err_code != NRF_ERROR_BUSY))
-                {
-                    NRF_LOG_ERROR("Failed receiving NUS message. Error 0x%x. ", err_code);
-                    APP_ERROR_CHECK(err_code);
-                }
-            } while (err_code == NRF_ERROR_BUSY);
-        }
-        if (p_evt->params.rx_data.p_data[p_evt->params.rx_data.length - 1] == '\r')
-        {
-            while (app_uart_put('\n') == NRF_ERROR_BUSY);
-        }
+        case BLE_NUS_EVT_OTA_DATA:
+        SetBleEvent(BLE_UPGRADE_EVENT);
+        memcpy((uint8_t*)&bleRecMsg, p_evt->params.rx_data.p_data, p_evt->params.rx_data.length);
+        break;
+            
+            
     }
+//    if (p_evt->type == BLE_NUS_EVT_RX_DATA)
+//    {
+//        uint32_t err_code;
+
+//        NRF_LOG_DEBUG("Received data from BLE NUS. Writing data on UART.");
+//        NRF_LOG_HEXDUMP_DEBUG(p_evt->params.rx_data.p_data, p_evt->params.rx_data.length);
+
+//        for (uint32_t i = 0; i < p_evt->params.rx_data.length; i++)
+//        {
+//            do
+//            {
+//                err_code = app_uart_put(p_evt->params.rx_data.p_data[i]);
+//                if ((err_code != NRF_SUCCESS) && (err_code != NRF_ERROR_BUSY))
+//                {
+//                    NRF_LOG_ERROR("Failed receiving NUS message. Error 0x%x. ", err_code);
+//                    APP_ERROR_CHECK(err_code);
+//                }
+//            } while (err_code == NRF_ERROR_BUSY);
+//        }
+//        if (p_evt->params.rx_data.p_data[p_evt->params.rx_data.length - 1] == '\r')
+//        {
+//            while (app_uart_put('\n') == NRF_ERROR_BUSY);
+//        }
+//    }
 
 }
 /**@snippet [Handling the data received over BLE] */
@@ -338,7 +356,7 @@ static void on_adv_evt(ble_adv_evt_t ble_adv_evt)
         case BLE_ADV_EVT_FAST:
             break;
         case BLE_ADV_EVT_IDLE:
-            sleep_mode_enter();
+            //sleep_mode_enter();
             break;
         default:
             break;
@@ -358,8 +376,9 @@ static void ble_evt_handler(ble_evt_t const * p_ble_evt, void * p_context)
     switch (p_ble_evt->header.evt_id)
     {
         case BLE_GAP_EVT_CONNECTED:
+            
             NRF_LOG_INFO("Connected");
-            APP_ERROR_CHECK(err_code);
+            SetBleEvent(BLE_CONNECT_EVENT);
             m_conn_handle = p_ble_evt->evt.gap_evt.conn_handle;
             err_code = nrf_ble_qwr_conn_handle_assign(&m_qwr, m_conn_handle);
             APP_ERROR_CHECK(err_code);
@@ -367,6 +386,7 @@ static void ble_evt_handler(ble_evt_t const * p_ble_evt, void * p_context)
 
         case BLE_GAP_EVT_DISCONNECTED:
             NRF_LOG_INFO("Disconnected");
+            SetBleEvent(BLE_DISCONNECT_EVENT);
             // LED indication will be changed when advertising starts.
             m_conn_handle = BLE_CONN_HANDLE_INVALID;
             break;
@@ -661,7 +681,7 @@ int main(void)
     printf("\r\nUART started.\r\n");
 #endif
     NRF_LOG_INFO("Debug logging for UART over RTT started.");
-    // advertising_start();
+     advertising_start();
 
 
     // Enter main loop.

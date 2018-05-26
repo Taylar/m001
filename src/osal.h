@@ -18,7 +18,10 @@ extern uint32_t movtEvent;
 // ble event 
 #define		BLE_ADV_EVENT			0x0001
 #define		BLE_CONNECT_EVENT		0x0002
-#define		BLE_DATA_EVENT			0x0004
+#define		BLE_DISCONNECT_EVENT	0x0004
+#define		BLE_COMMAND_EVENT			0x0008
+#define		BLE_UPGRADE_EVENT		0x0010
+#define		BLE_HIS_DATA_EVENT		0x0020
 
 
 #define     DAILYAPP_MSG_SHORT_KEYS0_ISR		0x0001

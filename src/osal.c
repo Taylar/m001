@@ -51,7 +51,7 @@ void OsalRun(void)
 		bleEvent  = 0;
         __enable_irq();
 
-
+        BleApp(eventTemp);
 	}
 
 

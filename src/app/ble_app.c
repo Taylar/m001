@@ -250,3 +250,52 @@ void BleProtocal(protocal_msg_t *msg)
 
     }
 }
+
+
+void BleApp(uint32_t event)
+{
+	if(BLE_ADV_EVENT & event)
+	{
+		bleMode = BLE_BROADCAST_MODE;
+		phoneState = PHONE_STATE_NORMAL;
+	}
+
+
+	if(BLE_CONNECT_EVENT & event)
+	{
+		bleMode = BLE_CONNECT_MODE;
+
+	}
+
+
+	if(BLE_DISCONNECT_EVENT & event)
+	{
+		bleMode = BLE_BROADCAST_MODE;
+		//advertising_start();
+	}
+
+
+	if(BLE_COMMAND_EVENT & event)
+	{
+		BleProtocal(&bleRecMsg);
+	}
+
+
+	if(BLE_UPGRADE_EVENT & event)
+	{
+
+	}
+
+
+	if(BLE_HIS_DATA_EVENT & event)
+	{
+
+	}
+
+
+
+
+
+}
+
+
