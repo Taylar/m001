@@ -26,6 +26,7 @@ void BlePack(uint32_t command, protocal_msg_t *msg)
 {
 	uint8_t		serialNumTemp;
 	uint16_t	idTemp;
+	uint8_t 	i;
 
 	serialNumTemp = msg->serialNum;
 	idTemp		  = msg->id;
@@ -95,6 +96,13 @@ void BlePack(uint32_t command, protocal_msg_t *msg)
 	}
 
 	msg->load[msg->length] = DailyProtocalCheckcode(msg);
+
+	// for(i = 0; i < msg->length; i++)
+	// 	NRF_LOG_INFO("%2x", msg->load[i]);
+ //    NRF_LOG_INFO("\n");
+    NRF_LOG_INFO("%s\n", HexToSprintf((uint8_t*)msg, msg->length+6));			
+    
+	Ble_CommandHandleSend((uint8_t*)msg, msg->length+6);
 }
 
 
@@ -254,6 +262,7 @@ void BleProtocal(protocal_msg_t *msg)
 
 void BleApp(uint32_t event)
 {
+	uint16_t  i;
 	if(BLE_ADV_EVENT & event)
 	{
 		bleMode = BLE_BROADCAST_MODE;
@@ -277,6 +286,7 @@ void BleApp(uint32_t event)
 
 	if(BLE_COMMAND_EVENT & event)
 	{
+	    NRF_LOG_INFO("%s\n", HexToSprintf((uint8_t*)&bleRecMsg, bleRecMsg.length+6));			
 		BleProtocal(&bleRecMsg);
 	}
 
@@ -299,3 +309,37 @@ void BleApp(uint32_t event)
 }
 
 
+uint8_t sprintfData[64];
+uint8_t* HexToSprintf(uint8_t *data, uint16_t length)
+{
+	uint16_t k = 0, j = 0;
+	uint8_t  temp1, temp2;
+	while(length--)
+	{
+        
+		temp2 = (data[j]>>4);
+        temp1 = data[j]&0x0f;
+        j++;
+		if(temp2 > 9)
+		{
+			sprintfData[k] = temp2 + 'A'-10;
+		}
+		else
+		{
+			sprintfData[k] = temp2 + '0';
+		}
+		k++;
+		
+		if(temp1 > 9)
+		{
+			sprintfData[k] = temp1 + 'A'-10;
+		}
+		else
+		{
+			sprintfData[k] = temp1 + '0';
+		}
+		k++;
+	}
+	sprintfData[k] = '\0';
+	return sprintfData;
+}

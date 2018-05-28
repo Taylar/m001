@@ -491,7 +491,8 @@ uint32_t ble_nus_init(ble_nus_t * p_nus, ble_nus_init_t const * p_nus_init)
 uint32_t ble_nus_data_send(ble_nus_t * p_nus,
                            uint8_t   * p_data,
                            uint16_t  * p_length,
-                           uint16_t    conn_handle)
+                           uint16_t    conn_handle,
+                           uint16_t	   char_handle)
 {
     ret_code_t                 err_code;
     ble_gatts_hvx_params_t     hvx_params;
@@ -519,7 +520,7 @@ uint32_t ble_nus_data_send(ble_nus_t * p_nus,
 
     memset(&hvx_params, 0, sizeof(hvx_params));
 
-    hvx_params.handle = p_nus->ota_handles.value_handle;
+    hvx_params.handle = char_handle;
     hvx_params.p_data = p_data;
     hvx_params.p_len  = p_length;
     hvx_params.type   = BLE_GATT_HVX_NOTIFICATION;

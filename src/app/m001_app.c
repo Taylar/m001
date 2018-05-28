@@ -134,6 +134,7 @@ void M001_3Hshortkey(void)
 		if(bleMode == BLE_CONNECT_MODE)
 		{
 			SetSinglePort(GREEN_LED, LED_PORT_ACTIVE_STATE, 1000, 10, 1);
+			BlePack(DEVICE_REQ_TAKE_PIC, &bleSendMsg);
 		}
 
 		if(appPeerModeTime && (phoneState == PHONE_STATE_PEER))
@@ -175,11 +176,21 @@ void M001_3Hlongkey(void)
 	{
 		if(bleMode == BLE_SLEEP_MODE)
 		{
-			SetSinglePort(RED_LED, LED_PORT_ACTIVE_STATE, 130, 370, 1);
+			 SetSinglePort(RED_LED, LED_PORT_ACTIVE_STATE, 130, 370, 4);
+			 bleMode = BLE_BROADCAST_MODE;
 		}
 		else
 		{
-
+			SetSinglePort(RED_LED, LED_PORT_ACTIVE_STATE, 130, 370, 1);
+            if(bleMode == BLE_BROADCAST_MODE)
+            {
+            	advertising_stop();
+            }
+            else
+            {
+            	ble_disconnect_req();
+            }
+            bleMode = BLE_SLEEP_MODE;
 		}
 	}
 }

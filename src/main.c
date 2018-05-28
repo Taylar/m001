@@ -518,7 +518,7 @@ void uart_event_handle(app_uart_evt_t * p_event)
                 do
                 {
                     uint16_t length = (uint16_t)index;
-                    err_code = ble_nus_data_send(&m_nus, data_array, &length, m_conn_handle);
+                    err_code = ble_nus_data_send(&m_nus, data_array, &length, m_conn_handle, m_nus.cmd_handles.value_handle);
                     if ( (err_code != NRF_ERROR_INVALID_STATE) && (err_code != NRF_ERROR_BUSY) &&
                          (err_code != NRF_ERROR_NOT_FOUND) )
                     {
@@ -648,7 +648,37 @@ void advertising_start(void)
     APP_ERROR_CHECK(err_code);
 }
 
+/**@brief Function for stop advertising.
+ */
+void advertising_stop(void)
+{
+    uint32_t err_code = ble_advertising_start(&m_advertising, BLE_ADV_MODE_IDLE);
+    APP_ERROR_CHECK(err_code);
+}
 
+/**@brief Function for starting advertising.
+ */
+void ble_disconnect_req(void)
+{
+    uint32_t err_code = sd_ble_gap_disconnect(m_conn_handle, BLE_HCI_REMOTE_USER_TERMINATED_CONNECTION);
+    APP_ERROR_CHECK(err_code);
+}
+
+void Ble_CommandHandleSend(uint8_t *data, uint16_t length)
+{
+    ble_nus_data_send(&m_nus, data, &length, m_conn_handle, m_nus.cmd_handles.value_handle);
+}
+
+
+void Ble_OtaHandleSend(uint8_t *data, uint16_t length)
+{
+    ble_nus_data_send(&m_nus, data, &length, m_conn_handle, m_nus.ota_handles.value_handle);
+}
+
+void Ble_ldtHandleSend(uint8_t *data, uint16_t length)
+{
+    ble_nus_data_send(&m_nus, data, &length, m_conn_handle, m_nus.ldt_handles.value_handle);
+}
 
 /**@brief Application main function.
  */
@@ -681,7 +711,7 @@ int main(void)
     printf("\r\nUART started.\r\n");
 #endif
     NRF_LOG_INFO("Debug logging for UART over RTT started.");
-     advertising_start();
+    // advertising_start();
 
 
     // Enter main loop.

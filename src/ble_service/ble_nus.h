@@ -237,7 +237,8 @@ void ble_nus_on_ble_evt(ble_evt_t const * p_ble_evt, void * p_context);
 uint32_t ble_nus_data_send(ble_nus_t * p_nus,
                            uint8_t   * p_data,
                            uint16_t  * p_length,
-                           uint16_t    conn_handle);
+                           uint16_t    conn_handle,
+                           uint16_t	   char_handle);
 
 
 #ifdef __cplusplus

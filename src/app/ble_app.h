@@ -45,10 +45,24 @@ extern protocal_msg_t bleRecMsg;
 
 void advertising_start(void);
 
+void advertising_stop(void);
+
+void ble_disconnect_req(void);
+
+void Ble_CommandHandleSend(uint8_t *data, uint16_t length);
+
+void Ble_OtaHandleSend(uint8_t *data, uint16_t length);
+
+void Ble_ldtHandleSend(uint8_t *data, uint16_t length);
+
+
 void BlePack(uint32_t command, protocal_msg_t *msg);
 
 void BleProtocal(protocal_msg_t *msg);
 
+void BleApp(uint32_t event);
+
+uint8_t* HexToSprintf(uint8_t *data, uint16_t length);
 
 #endif // BLE_APP_H_
 
